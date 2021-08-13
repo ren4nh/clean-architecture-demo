@@ -15,7 +15,9 @@ services:
       - "nats"
       - "scylladb"
     restart: "always"
-
+    environment:
+      nats.addresses: "nats://nats:4222"
+      scyllahost: "scylladb"
   scylladb:
     build:
       context: .

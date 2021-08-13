@@ -41,13 +41,13 @@ api:
 
 nats:
   enabled: true
-  addresses: nats://nats:4222
+  addresses: nats://localhost:4222
 
 cassandra:
   default:
     basic:
       contact-points:
-        - "scylladb:9042"
+        - "${scyllahost:localhost}:9042"
       session-keyspace: ca_products
       load-balancing-policy:
         local-datacenter: datacenter1
