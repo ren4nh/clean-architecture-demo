@@ -7,6 +7,7 @@ Projeto criado para estudos da clean architecture
 - Testcontainers
 - ScyllaDB
 - Nats
+- Jacoco
 
 ## Como rodar
 

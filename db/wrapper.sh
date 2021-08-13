@@ -1,20 +1,20 @@
 #!/bin/bash
 
 echo "--------------------------------------------------";
-echo "[IUPP] Executing Scylla loading script...";
+echo "Executing Scylla loading script...";
 echo "--------------------------------------------------";
 
 echo "-----------------------------------------------------------------------";
-echo "[IUPP] Removendo cqlshrc anterior em /root/.cassandra/cqlshrc ";
+echo "Removendo cqlshrc anterior em /root/.cassandra/cqlshrc ";
 echo "-----------------------------------------------------------------------";
 rm -rf /root/.cassandra/cqlshrc
 
 # Script de criação do keyspace no loading do conteiner.
 for f in docker-entrypoint-initdb.d/*; do
     case "$f" in
-        *.cql)    echo "[IUPP] $0: running $f" && echo "" &&
+        *.cql)    echo "$0: running $f" && echo "" &&
             until cqlsh -f "$f"; do
-                >&2 echo "" && echo "[IUPP] Scylla Service not available yet: waiting..." && echo "";
+                >&2 echo "" && echo "Scylla Service not available yet: waiting..." && echo "";
                 sleep 10;
             done &
         ;;

@@ -15,7 +15,7 @@ micronaut {
 }
 
 application {
-    mainClass.set("br.com.hartwig.ApplicationKt")
+    mainClass.set("br.com.hartwig.Application")
 }
 
 dependencies {
@@ -49,7 +49,7 @@ kapt {
         arg("micronaut.processing.annotations", "${Dependencies.App.GROUP}.*")
         arg("micronaut.processing.group", Dependencies.App.GROUP)
         arg("micronaut.processing.module", "complete")
-        arg("micronaut.openapi.server.context.path", "/integration")
+        arg("micronaut.openapi.server.context.path", "/")
         arg(
             "micronaut.openapi.views.spec",
             "redoc.enabled=true,rapidoc.enabled=true,swagger-ui.enabled=true,swagger-ui.theme=flattop"
