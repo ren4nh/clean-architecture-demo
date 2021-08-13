@@ -1,0 +1,54 @@
+micronaut:
+  application:
+    name: clean-architeture-demo
+  server:
+    port: 8081
+    context-path: /
+    cors:
+      enabled: true
+  router:
+    versioning:
+      enabled: true
+      default-version: 1
+    static-resources:
+      swagger:
+        paths: classpath:META-INF/swagger
+        mapping: /swagger/**
+      redoc:
+        paths: classpath:META-INF/swagger/views/redoc
+        mapping: /redoc/**
+      rapidoc:
+        paths: classpath:META-INF/swagger/views/rapidoc
+        mapping: /rapidoc/**
+      swagger-ui:
+        paths: classpath:META-INF/swagger/views/swagger-ui
+        mapping: /swagger-ui/**
+    endpoints:
+      all:
+        enabled: true
+        sensitive: false
+      health:
+        enabled: true
+        details-visible: ANONYMOUS
+      beans:
+        enabled: true
+      info:
+        enabled: true
+      routes:
+        enabled: true
+api:
+  url: "https://my-json-server.typicode.com/ren4nh/product-repo/products"
+
+nats:
+  enabled: true
+  addresses: nats://nats:4222
+
+cassandra:
+  default:
+    basic:
+      contact-points:
+        - "scylladb:9042"
+      session-keyspace: ca_products
+      load-balancing-policy:
+        local-datacenter: datacenter1
+

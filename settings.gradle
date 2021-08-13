@@ -1,0 +1,20 @@
+
+pluginManagement {
+    plugins {
+    }
+    repositories {
+        gradlePluginPortal()
+        mavenLocal()
+        mavenCentral()
+    }
+}
+
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        jcenter()
+    }
+}
+rootProject.name="clean-architecture-demo"

@@ -1,0 +1,46 @@
+version: "3.9"
+
+services:
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile.local
+    container_name: app
+    ports:
+      - "8081:8081"
+    networks:
+      - app-network
+    depends_on:
+      - "nats"
+      - "scylladb"
+    restart: "always"
+
+  scylladb:
+    build:
+      context: .
+      dockerfile: db/Dockerfile
+    container_name: scylladb
+    command: "--smp 1 --memory 750M --overprovisioned 1"
+    networks:
+      - app-network
+    healthcheck:
+      test: [ "CMD-SHELL", "[ $$(nodetool statusgossip) = running ]" ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  nats:
+    image: nats
+    container_name: nats
+    ports:
+      - "4222:4222"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    ipam:
+      driver: default
+      config:
+        - subnet: 10.10.0.1/16
