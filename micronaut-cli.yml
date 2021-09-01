@@ -3,4 +3,4 @@ defaultPackage: br.com.hartwig
 testFramework: kotest
 sourceLanguage: kotlin
 buildTool: gradle
-features: [annotation-api, app-name, gradle, http-client, kotest, kotlin, kotlin-application, logback, nats, netty-server, readme, shade, yaml]
+features: [annotation-api, app-name, gradle, http-client, kotest, kotlin, kotlin-application, logback, kafka, netty-server, readme, shade, yaml]

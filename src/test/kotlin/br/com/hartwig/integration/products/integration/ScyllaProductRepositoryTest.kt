@@ -33,6 +33,7 @@ class ScyllaProductRepositoryTest : StringSpec() {
     override fun beforeSpec(spec: Spec) {
         scyllaContainer.withExposedPorts(9042)
         scyllaContainer.withInitScript("create-keyspace.cql")
+        scyllaContainer.withCommand("--smp 1 --memory 750M --overprovisioned 1")
         scyllaContainer.start()
         System.getProperties()["cassandra.default.basic.contact-points"] = listOf("localhost:" + scyllaContainer.getMappedPort(9042))
         super.beforeSpec(spec)

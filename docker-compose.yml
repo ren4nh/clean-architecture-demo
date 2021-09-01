@@ -2,28 +2,30 @@ version: "3.9"
 
 services:
 
-  app:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    container_name: app
-    ports:
-      - "8081:8081"
-    networks:
-      - app-network
-    depends_on:
-      - "nats"
-      - "scylladb"
-    restart: "always"
-    environment:
-      nats.addresses: "nats://nats:4222"
-      scyllahost: "scylladb"
+#  app:
+#    build:
+#      context: .
+#      dockerfile: Dockerfile
+#    container_name: app2
+#    ports:
+#      - "8081:8081"
+#    networks:
+#      - app-network
+#    depends_on:
+#      - "broker"
+#      - "scylladb"
+#    restart: "always"
+#    environment:
+#      KAFKA.BOOTSTRAP.SERVERS: 'broker:29092'
+#      scyllahost: "scylladb"
   scylladb:
     build:
       context: .
       dockerfile: db/Dockerfile
-    container_name: scylladb
+    container_name: scylladb2
     command: "--smp 1 --memory 750M --overprovisioned 1"
+    ports:
+      - "9042:9042"
     networks:
       - app-network
     healthcheck:
@@ -32,11 +34,45 @@ services:
       timeout: 10s
       retries: 5
 
-  nats:
-    image: nats
-    container_name: nats
+  zookeeper:
+    image: confluentinc/cp-zookeeper:6.2.0
+    hostname: zookeeper
+    container_name: zookeeper2
     ports:
-      - "4222:4222"
+      - "2181:2181"
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    networks:
+      - app-network
+
+  broker:
+    image: confluentinc/cp-server:6.2.0
+    hostname: broker
+    container_name: broker2
+    depends_on:
+      - zookeeper
+    ports:
+      - "9092:9092"
+      - "9101:9101"
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: 'zookeeper:2181'
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://broker:29092,PLAINTEXT_HOST://localhost:9092
+      KAFKA_METRIC_REPORTERS: io.confluent.metrics.reporter.ConfluentMetricsReporter
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+      KAFKA_CONFLUENT_LICENSE_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_CONFLUENT_BALANCER_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_JMX_PORT: 9101
+      KAFKA_JMX_HOSTNAME: localhost
+      CONFLUENT_METRICS_REPORTER_BOOTSTRAP_SERVERS: broker:29092
+      CONFLUENT_METRICS_REPORTER_TOPIC_REPLICAS: 1
+      CONFLUENT_METRICS_ENABLE: 'true'
+      CONFLUENT_SUPPORT_CUSTOMER_ID: 'anonymous'
     networks:
       - app-network
 
