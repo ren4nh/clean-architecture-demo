@@ -2,22 +2,22 @@ version: "3.9"
 
 services:
 
-#  app:
-#    build:
-#      context: .
-#      dockerfile: Dockerfile
-#    container_name: app2
-#    ports:
-#      - "8081:8081"
-#    networks:
-#      - app-network
-#    depends_on:
-#      - "broker"
-#      - "scylladb"
-#    restart: "always"
-#    environment:
-#      KAFKA.BOOTSTRAP.SERVERS: 'broker:29092'
-#      scyllahost: "scylladb"
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: app2
+    ports:
+      - "8081:8081"
+    networks:
+      - app-network
+    depends_on:
+      - "broker"
+      - "scylladb"
+    restart: "always"
+    environment:
+      KAFKA.BOOTSTRAP.SERVERS: 'broker:29092'
+      scyllahost: "scylladb"
   scylladb:
     build:
       context: .
