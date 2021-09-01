@@ -39,7 +39,7 @@ dependencies {
     implementation(Dependencies.TestDependencies.KOTEST)
     runtimeOnly(Dependencies.LogDependencies.LOGBACK)
     implementation(Dependencies.KotlinDependencies.JACKSON)
-    implementation(Dependencies.MicronautDependencies.NATS)
+    implementation(Dependencies.MicronautDependencies.KAFKA)
     implementation(Dependencies.MicronautDependencies.SWAGGER)
 }
 

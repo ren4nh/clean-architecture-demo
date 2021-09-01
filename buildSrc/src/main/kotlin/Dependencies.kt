@@ -40,7 +40,7 @@ class Dependencies {
         const val HTTP_SERVER_NETTY = "io.micronaut:micronaut-http-server-netty"
         const val MANAGEMENT = "io.micronaut:micronaut-management"
         const val CASSANDRA = "io.micronaut.cassandra:micronaut-cassandra:${Versions.CASSANDRA_VERSION}"
-        const val NATS = "io.micronaut.nats:micronaut-nats"
+        const val KAFKA = "io.micronaut.kafka:micronaut-kafka"
         const val OPENAPI = "io.micronaut.openapi:micronaut-openapi:${Versions.OPENAPI_VERSION}"
         const val SWAGGER = "io.swagger.core.v3:swagger-annotations"
     }

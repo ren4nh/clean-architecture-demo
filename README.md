@@ -6,7 +6,7 @@ Projeto criado para estudos da clean architecture
 - Kotest
 - Testcontainers
 - ScyllaDB
-- Nats
+- Apache Kafka
 - Jacoco
 
 ## Como rodar
@@ -42,13 +42,7 @@ class CreateProductInteractorImpl(@Named("api") private val productDataProvider:
 ```
 
 
-O exemplo tambem possui 2 entrypoints que são via rest e mensageria atraves do nats
-
-Para testar via nats, realizar o download do cli - https://github.com/nats-io/natscli e executar o comando de exemplo no terminal
-
-```
-nats pub create_product_request '{\"name\":\"Testando\",\"price\":1000,\"sku\":12444, \"color\": \"azul\"}'
-```
+O exemplo tambem possui 2 entrypoints que são via rest e mensageria atraves do kafka
 
 ## Documentação da api
 

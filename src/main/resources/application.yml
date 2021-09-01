@@ -39,9 +39,9 @@ micronaut:
 api:
   url: "https://my-json-server.typicode.com/ren4nh/product-repo/products"
 
-nats:
-  enabled: true
-  addresses: nats://localhost:4222
+kafka:
+  bootstrap:
+    servers: localhost:9092
 
 cassandra:
   default:

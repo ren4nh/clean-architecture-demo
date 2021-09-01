@@ -1,15 +1,15 @@
-package br.com.hartwig.integration.products.infrastructure.dataprovider.nats.repository
+package br.com.hartwig.integration.products.infrastructure.dataprovider.kafka.repository
 
 import br.com.hartwig.commons.command.Repository
 import br.com.hartwig.integration.products.core.domain.Product
-import br.com.hartwig.integration.products.infrastructure.dataprovider.nats.client.NatsClient
+import br.com.hartwig.integration.products.infrastructure.dataprovider.kafka.client.KafkaClient
 import java.util.UUID
 import javax.inject.Singleton
 
 @Singleton
-class NatsProductRepository(private val natsClient: NatsClient) : Repository<Product> {
+class KafkaProductRepository(private val kafkaClient: KafkaClient) : Repository<Product> {
     override fun create(entity: Product): UUID? {
-        natsClient.sendProduct(entity)
+        kafkaClient.sendProduct(entity)
         return entity.id
     }
 
